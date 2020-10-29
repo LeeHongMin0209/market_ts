@@ -8,13 +8,14 @@ import { Market } from './schemas/market.schema';
 export class MarketController {
     constructor(private readonly marketService: MarketService) {}
 
+    //회원가입하기
     @Post()
     async create(@Body() createMarketDto: CreateMarketDto){
         await this.marketService.createMarket(createMarketDto);
     }
 
-    @Get('/:id')
-    async findOne(@Param("id") userId: string): Promise<Market> {
-        return this.marketService.getOne(userId);
-    }
+    @Get()
+  async findAll(): Promise<Market[]> {
+    return this.marketService.findAll();
+  }
 }

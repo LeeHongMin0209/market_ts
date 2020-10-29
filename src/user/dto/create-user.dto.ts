@@ -1,4 +1,5 @@
 export class CreateUserDto{
+   readonly _id: string; // 고유 아이디
    readonly snsId: string; // 카톡 profile 아이디
    readonly email: string;  // 이메일
    readonly name: string;  // 이름

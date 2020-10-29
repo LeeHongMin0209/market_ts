@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -26,16 +26,16 @@ export class User {
     @Prop()
     agreeMarketingInfo: boolean;  // 마케팅 정보 활용 동의 여부
     
-    @Prop([String])
+    @Prop({ type : [SchemaTypes.ObjectId], ref: 'Adress' })
     recentAdressIdList: string[];  // 최근 배송지 정보 리스트
 
-    @Prop([String])
+    @Prop({ type: [SchemaTypes.ObjectId], ref: 'Product' })
     likeProductIdList: string[];  // 좋아요 누른 상품 리스트
     
-    @Prop([String])
+    @Prop({ type: [SchemaTypes.ObjectId], ref: 'Market' })
     likeMarketIdList: string[];  // 좋아요 누른 마켓 리스트
     
-    @Prop([String])
+    @Prop({ type: [SchemaTypes.ObjectId], ref: 'Coupon' })
     couponIdList: string[];  // 보유하고 있는 쿠폰 리스트
 
     @Prop()
