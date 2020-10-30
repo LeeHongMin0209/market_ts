@@ -6,7 +6,6 @@ export class CreateMarketDto{
     readonly phone: string;  // 핸드폰 번호
     readonly owner: string;  // 사업자 이름
     readonly url: string;  // 사이트 주소
-    readonly image: string;  // 마켓 대표 사진
     readonly businessNum: number;  // 사업자 등록번호
     readonly introduce: string;  // 마켓 소개
     readonly root: string;  // 입점 신청 경로
@@ -15,7 +14,7 @@ export class CreateMarketDto{
     readonly agreePrivateInfo: boolean;  // 개인정보 이용약관 동의 여부
     readonly agreeMarketingInfo: boolean;  // 마케팅 정보 활용 동의 여부
     readonly rejectReason: string;  // 입점 거부사유
-    readonly allowStatus: string;  // 입점 허가, 입점 거부, 입점 심사중
+    allowStatus: string;  // 입점 허가, 입점 거부, 입점 심사중
 
     readonly business: string;  // 사업자 등록증 사본
     readonly telemarket: string;  // 통신 판매업 신고증 사본
@@ -26,5 +25,6 @@ export class CreateMarketDto{
     readonly sales: number;  // 판매량
 
     readonly createdAt: Date;  // 입점 날짜
-    readonly salesForMonth: number // 한달간의 판매량
+    readonly salesForMonth: number; // 한달간의 판매량
+    readonly type: string; // 판매자 유형
  }

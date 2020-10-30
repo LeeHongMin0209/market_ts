@@ -24,9 +24,6 @@ export class Market extends Document {
      url: string;  // 사이트 주소
      
      @Prop()
-     image: string;  // 마켓 대표 사진
-     
-     @Prop()
      businessNum: number;  // 사업자 등록번호
      
      @Prop()
@@ -50,7 +47,7 @@ export class Market extends Document {
      @Prop()
      rejectReason: string;  // 입점 거부사유
      
-     @Prop()
+     @Prop({enum : ['입점허가', '입점 거부', '입점 심사중']})
      allowStatus: string;  // 입점 허가, 입점 거부  
      
      @Prop()
@@ -73,5 +70,8 @@ export class Market extends Document {
      
      @Prop()
      salesForMonth: number // 한달간의 판매량
+
+     @Prop()
+     type: string // 판매자 유형
 }
 export const MarketSchema = SchemaFactory.createForClass(Market);
