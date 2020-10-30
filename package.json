@@ -26,6 +26,8 @@
     "@nestjs/mapped-types": "^0.1.0",
     "@nestjs/mongoose": "^7.0.2",
     "@nestjs/platform-express": "^7.0.0",
+    "aggregate": "^0.1.0",
+    "monent": "^2.0.0",
     "mongoose": "^5.10.11",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

@@ -71,7 +71,7 @@ export class Market extends Document {
      @Prop()
      salesForMonth: number // 한달간의 판매량
 
-     @Prop()
+     @Prop({enum: ['INFLUENCER', 'GROOMING']})
      type: string // 판매자 유형
 }
 export const MarketSchema = SchemaFactory.createForClass(Market);

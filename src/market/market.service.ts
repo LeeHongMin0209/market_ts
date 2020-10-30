@@ -1,11 +1,9 @@
 import { Model } from 'mongoose';
-import { Get, HttpException, HttpStatus, Inject, Injectable, Post } from '@nestjs/common';
+import { Get, HttpException, HttpStatus, Inject, Injectable, Param, Post } from '@nestjs/common';
 import { Market, MarketDocument } from './schemas/market.schema';
 import { CreateMarketDto } from './dto/create-market.dto';
-import { request } from 'http';
-import { NextFunction } from 'express';
 import { UpdateMarketDto } from './dto/updata-market.dto';
-
+import moment from 'monent';
 
 @Injectable()
 export class MarketService {
@@ -16,12 +14,13 @@ export class MarketService {
       
     // Post -> 회원가입하기
     async createMarket(createMarketDto: CreateMarketDto): Promise<Market> {
-      console.log(createMarketDto);
         const market: MarketDocument | null = await this.marketModel.findOne({ email: createMarketDto.email });
         if(!market){
           createMarketDto.allowStatus = '입점 심사중';
           const createdMarket = await this.marketModel.create(createMarketDto);
           createdMarket.rejectReason = '';
+          console.log(createdMarket);
+          
           return createdMarket.save();
         } else {
           throw new HttpException('이미 가입된 유저입니다.', HttpStatus.FORBIDDEN)
@@ -51,4 +50,6 @@ export class MarketService {
           .select('name');
           return marketList;
     }
+
+    
 }
