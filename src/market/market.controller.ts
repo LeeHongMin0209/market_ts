@@ -27,5 +27,8 @@ export class MarketController {
       return this.marketService.getNewFourMarkets();
     }
 
-   
+   @Get('/getBestMarketList/:page')
+    async getBestMarketList(@Param() page:string, @Query() type:string): Promise<Market[]> {
+      return this.marketService.getBestMarketList(page, type);
+    }
 }

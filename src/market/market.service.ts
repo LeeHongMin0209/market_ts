@@ -3,7 +3,6 @@ import { Get, HttpException, HttpStatus, Inject, Injectable, Param, Post } from 
 import { Market, MarketDocument } from './schemas/market.schema';
 import { CreateMarketDto } from './dto/create-market.dto';
 import { UpdateMarketDto } from './dto/updata-market.dto';
-import moment from 'monent';
 
 @Injectable()
 export class MarketService {
@@ -51,5 +50,41 @@ export class MarketService {
           return marketList;
     }
 
-    
+
+    // Get -> 판매량 순으로 10개씩 마켓보여주기
+    async getBestMarketList(type: string, page: string): Promise<Market[]> {
+      const pageNum: number = parseInt(page, 10);
+      const resPerPage: number = 10;
+      let marketList: MarketDocument[];
+      if(type == 'GROOMING') {
+         marketList = await this.marketModel.aggregate([
+             {$match: {allowStatus: '입점 허가', type: 'GROOMING'}},
+             {$sort: {salesForMonth: -1, seed: -1}},
+             {$skip: (pageNum - 1) * resPerPage},
+             {$limit: resPerPage},
+             {
+                 $project: {
+                     name: 1,
+                     tags: 1,
+                     image: 1,
+                 }
+             }
+         ]);
+     } else {
+             marketList = await  this.marketModel.aggregate([
+                 {$match: {allowStatus: '입점 허가', type: {$ne: 'GROOMING'}} },
+                 {$sort: {salesForMonth: -1, seed: -1}},
+                 {$skip: (pageNum - 1) * resPerPage},
+                 {$limit: resPerPage},
+                 {
+                     $project: {
+                         name: 1,
+                         tags: 1,
+                         image: 1,
+                     }
+                 }
+             ]);
+         }
+        return marketList;
+    }
 }
