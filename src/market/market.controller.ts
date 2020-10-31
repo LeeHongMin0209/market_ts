@@ -27,8 +27,16 @@ export class MarketController {
       return this.marketService.getNewFourMarkets();
     }
 
-   @Get('/getBestMarketList/:page')
-    async getBestMarketList(@Param() page:string, @Query() type:string): Promise<Market[]> {
+    // Get -> 판매량 순으로 10개씩 마켓보여주기
+    @Get('/getBestMarketList/:page')
+    async getBestMarketList(@Param("page") page:string, @Query("type") type:string): Promise<Market[]> {
       return this.marketService.getBestMarketList(page, type);
+    }
+
+    //Get -> 마켓 상세조회
+    @Get('/getMarket/:id')
+    //@Param()안에 id 넣어줘야 작동, 다른 로직은 작동하지만 id를 이용하여 db를 찾는과정은 작동안함. 이유 찾아보기
+    async getMarket(@Param("id") id: string): Promise<Market> {
+      return this.marketService.getMarket(id);
     }
 }

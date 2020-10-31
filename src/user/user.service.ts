@@ -21,8 +21,4 @@ export class UserService {
           throw new HttpException('이미 가입된 유저입니다.', HttpStatus.FORBIDDEN)
       }
     }
-
-    async findAll(): Promise<User[]> {
-        return this.userModel.find().exec();
-      }
 }

@@ -4,7 +4,8 @@ import { ObjectId } from 'mongodb';
 export type MarketDocument = Market & Document;
 
 @Schema()
-export class Market extends Document {    
+export class Market extends Document {
+
      @Prop()
      modelId: string; // 마켓이 가장 최근에 저장한 모델 고유 아이디
      
