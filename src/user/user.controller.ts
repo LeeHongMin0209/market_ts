@@ -5,11 +5,17 @@ import { User } from './schemas/user.schema';
 
 @Controller('user')
 
+
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto){
-        await this.userService.createUser(createUserDto);
+        return this.userService.createUser(createUserDto);
+    }
+
+    @Get('/findEmail')
+    async findEmail(@Body() params){
+        return this.userService.findEmail(params);
     }
 }

@@ -11,7 +11,7 @@ export class UserService {
         private userModel: Model<UserDocument>,
       ) {}
 
-    async createUser(createUserDto: CreateUserDto): Promise<User> {
+    async createUser(createUserDto: CreateUserDto) {
         const emailUser: UserDocument | null = await this.userModel.findOne({ email: createUserDto.email });
         const phoneUser: UserDocument | null = await this.userModel.findOne({ phone: createUserDto.phone });
         if(!emailUser){
@@ -24,6 +24,17 @@ export class UserService {
           }
         } else {
           throw new HttpException('이메일이 이미 가입된 유저입니다.', HttpStatus.FORBIDDEN)
+      }
+    }
+
+    async findEmail(params): Promise<User> {
+      const { name, phone } = params
+      const user: UserDocument | null = await this.userModel.findOne({ name, phone }).select('_id email');
+      if(user){
+        console.log(user);
+        return user;
+      } else {
+        throw new HttpException('아이디를 찾지 못했습니다.', HttpStatus.FORBIDDEN)
       }
     }
 }
