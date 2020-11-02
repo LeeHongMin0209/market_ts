@@ -13,12 +13,17 @@ export class UserService {
 
     async createUser(createUserDto: CreateUserDto): Promise<User> {
         const emailUser: UserDocument | null = await this.userModel.findOne({ email: createUserDto.email });
+        const phoneUser: UserDocument | null = await this.userModel.findOne({ phone: createUserDto.phone });
         if(!emailUser){
-          const createdUser = await this.userModel.create(createUserDto);
-          console.log(createUserDto);
-          return createdUser.save();
+          if(!createUserDto.phone || !phoneUser){
+            const createdUser = await this.userModel.create(createUserDto);
+            console.log(createUserDto);
+            return createdUser.save(); 
+          } else {
+            throw new HttpException('전화번호가 이미 가입된 유저입니다.', HttpStatus.FORBIDDEN)
+          }
         } else {
-          throw new HttpException('이미 가입된 유저입니다.', HttpStatus.FORBIDDEN)
+          throw new HttpException('이메일이 이미 가입된 유저입니다.', HttpStatus.FORBIDDEN)
       }
     }
 }
