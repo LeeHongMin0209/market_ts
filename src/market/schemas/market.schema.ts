@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import { Document, SchemaType, SchemaTypes } from 'mongoose';
-import { ObjectId } from 'mongodb';
+import { Document } from 'mongoose';
 export type MarketDocument = Market & Document;
 
 @Schema()
@@ -60,16 +59,16 @@ export class Market extends Document {
      @Prop()
      bankbook: string;  // 본인     
      
-     @Prop()
+     @Prop({ default: 0 })
      like: number;      
      
-     @Prop()
+     @Prop({ default: 0 })
      sales: number; 
      
      @Prop()
      createdAt: Date;  // 입점 날짜
      
-     @Prop()
+     @Prop({ default: 0 })
      salesForMonth: number // 한달간의 판매량
 
      @Prop({enum: ['INFLUENCER', 'GROOMING']})
